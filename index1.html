@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Management System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #87CEEB; /* Sky blue background */
+            margin: 0;
+            padding: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            margin: auto;
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #007BFF;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .back-button {
+            background-color: #6c757d;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-type {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="login-container">
+            <h2>Login</h2>
+            <div class="user-type">
+                <button id="student-login">Student Login</button>
+                <button id="admin-login">Admin Login</button>
+            </div>
+            <form id="login-form" style="display: none;">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <button type="button" class="back-button" onclick="showUserSelection()">Back</button>
+            </form>
+        </div>
+
+        <div id="main-container" style="display: none;">
+            <h1>P.E.S</h1>
+            <h2>Welcome to the College Management System</h2>
+            <button id="rate-staff">Rate Staff</button>
+            <button id="submit-assignment">Submit Assignment</button>
+            <button id="attendance">Check Attendance</button>
+            <button id="view-projects">View Projects</button>
+        </div>
+
+        <div id="feedback-container" style="display: none;">
+            <h3>Rate Staff</h3>
+            <form id="rating-form">
+                <label for="staff-name">Staff Name:</label>
+                <input type="text" id="staff-name" required>
+                <label for="rating">Rating:</label>
+                <select id="rating" required>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <button type="submit">Submit Rating</button>
+                <button type="button" class="back-button" onclick="goBack()">Back</button>
+            </form>
+        </div>
+
+        <div id="assignment-container" style="display: none;">
+            <h3>Submit Assignment</h3>
+            <form id="assignment-form">
+                <input type="text" id="assignment-title" placeholder="Assignment Title" required>
+                <input type="file" id="assignment-file" required>
+                <button type="submit">Submit Assignment</button>
+                <button type="button" class="back-button" onclick="goBack()">Back</button>
+            </form>
+        </div>
+
+        <div id="attendance-container" style="display: none;">
+            <h3>Attendance Records</h3>
+            <p>Attendance data would be displayed here.</p>
+            <button type="button" class="back-button" onclick="goBack()">Back</button>
+        </div>
+
+        <div id="projects-container" style="display: none;">
+            <h3>Projects Created by Members</h3>
+            <ul>
+                <li>
+                    <strong>Project Title:</strong> Web Development Project<br>
+                    <strong>Members:</strong> Alice, Bob, Charlie<br>
+                    <strong>Details:</strong> A project to develop a responsive website.
+                </li>
+                <li>
+                    <strong>Project Title:</strong> AI Chatbot<br>
+                    <strong>Members:</strong> David, Eva<br>
+                    <strong>Details:</strong> Developing a chatbot using machine learning.
+                </li>
+            </ul>
+            <button type="button" class="back-button" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('student-login').addEventListener('click', function() {
+                showLoginForm();
+            });
+
+            document.getElementById('admin-login').addEventListener('click', function() {
+                showLoginForm();
+            });
+
+            function showLoginForm() {
+                document.getElementById('login-container').querySelector('.user-type').style.display = 'none';
+                document.getElementById('login-form').style.display = 'flex';
+            }
+
+            function showUserSelection() {
+                document.getElementById('login-container').querySelector('.user-type').style.display = 'flex';
+                document.getElementById('login-form').style.display = 'none';
+            }
+
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('main-container').style.display = 'block';
+            });
+
+            document.getElementById('rate-staff').addEventListener('click', function() {
+                showSection('feedback-container');
+            });
+
+            document.getElementById('submit-assignment').addEventListener('click', function() {
+                showSection('assignment-container');
+            });
+
+            document.getElementById('attendance').addEventListener('click', function() {
+                showSection('attendance-container');
+            });
+
+            document.getElementById('view-projects').addEventListener('click', function() {
+                showSection('projects-container');
+            });
+
+            document.getElementById('rating-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Rating submitted!');
+                goBack();
+            });
+
+            document.getElementById('assignment-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Assignment submitted!');
+                goBack();
+            });
+
+            function showSection(sectionId) {
+                const sections = ['feedback-container', 'assignment-container', 'attendance-container', 'projects-container'];
+                sections.forEach(id => {
+                    document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
+                });
+            }
+
+            function goBack() {
+                const sections = ['feedback-container', 'assignment-container', 'attendance-container', 'projects-container'];
+                sections.forEach(id => {
+                    document.getElementById(id).style.display = 'none';
+                });
+                document.getElementById('main-container').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
